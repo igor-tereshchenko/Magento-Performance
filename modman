@@ -1,0 +1,3 @@
+# modman configuration
+code                    app/code/local/Company/Performance/
+Company_Performance.xml app/etc/modules/Company_Performance.xml
