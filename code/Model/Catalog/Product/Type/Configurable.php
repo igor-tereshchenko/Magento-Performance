@@ -170,7 +170,7 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
                     Mage::app()->saveCache(
                         serialize($usedProducts),
                         $cacheId,
-                        self::$_cacheArray['USED_PRODUCTS_CACHE_TAG'],
+                        array(self::$_cacheArray['USED_PRODUCTS_CACHE_TAG']),
                         self::$_cacheArray['USED_PRODUCTS_CACHE_LIFETIME']
                     );
                 }
@@ -224,7 +224,7 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
                         Mage::app()->saveCache(
                             serialize($configurableAttributes),
                             $cacheId,
-                            self::$_cacheArray['CONF_ATTR_CACHE_TAG'],
+                            array(self::$_cacheArray['CONF_ATTR_CACHE_TAG']),
                             self::$_cacheArray['CONF_ATTR_CACHE_LIFETIME']
                         );
                     }
