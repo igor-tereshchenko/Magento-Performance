@@ -18,16 +18,16 @@
                     <product_type_configurable_attribute_collection>Company_Performance_Model_Resource_Catalog_Product_Type_Configurable_Attribute_Collection</product_type_configurable_attribute_collection>
                 </rewrite>
             </catalog_resource>
-            <eav>
-                <rewrite>
-                    <entity_attribute_source_table>Company_Performance_Model_Eav_Entity_Attribute_Source_Table</entity_attribute_source_table>
-                </rewrite>
-            </eav>
             <catalog>
                 <rewrite>
                     <product_type_configurable>Company_Performance_Model_Catalog_Product_Type_Configurable</product_type_configurable>
                 </rewrite>
             </catalog>
+            <eav>
+                <rewrite>
+                    <entity_attribute_source_table>Company_Performance_Model_Eav_Entity_Attribute_Source_Table</entity_attribute_source_table>
+                </rewrite>
+            </eav>
         </models>
         <helpers>
             <company_performance>
