@@ -9,16 +9,16 @@
 -->
 <config>
     <sections>
-        <company_performance translate="label">
+        <dev translate="label" module="core">
             <label>Performance</label>
-            <tab>developer</tab>
+            <tab>advanced</tab>
             <frontend_type>text</frontend_type>
             <sort_order>1500</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>
             <groups>
-                <general translate="label">
+                <performance translate="label">
                     <label>General Settings</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>10</sort_order>
@@ -38,7 +38,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
-                        <used_products translate="label comment">
+                        <used_products_lifetime translate="label comment">
                             <label>Used Products</label>
                             <comment>
                                 <![CDATA[Please enter used products cache expiration period]]>
@@ -48,8 +48,8 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </used_products>
-                        <configurable_attributes translate="label comment">
+                        </used_products_lifetime>
+                        <configurable_attributes_lifetime translate="label comment">
                             <label>Configurable Attributes</label>
                             <comment>
                                 <![CDATA[Please enter configurable attributes cache expiration period]]>
@@ -59,10 +59,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </configurable_attributes>
+                        </configurable_attributes_lifetime>
                     </fields>
-                </general>
+                </performance>
             </groups>
-        </company_performance>
+        </dev>
     </sections>
 </config>

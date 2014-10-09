@@ -28,24 +28,43 @@
                     <entity_attribute_source_table>Company_Performance_Model_Eav_Entity_Attribute_Source_Table</entity_attribute_source_table>
                 </rewrite>
             </eav>
+            <catalogrule>
+                <rewrite>
+                    <observer>Company_CatalogRule_Model_Observer</observer>
+                </rewrite>
+            </catalogrule>
         </models>
         <helpers>
             <company_performance>
                 <class>Company_Performance_Helper</class>
             </company_performance>
         </helpers>
+        <events>
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <catalogrule>
+                        <class>catalogrule/observer</class>
+                        <method>beforeCollectTotals</method>
+                    </catalogrule>
+                </observers>
+            </sales_quote_collect_totals_before>
+        </events>
     </global>
     <default>
+        <dev translate="label" module="core">
+            <performance translate="label">
+                <used_products_lifetime>7200</used_products_lifetime>
+                <configurable_attributes_lifetime>7200</configurable_attributes_lifetime>
+            </performance>
+        </dev>
         <company_performance>
             <used_products>
                 <cache_key>used_products</cache_key>
                 <cache_tag>cached_used_products</cache_tag>
-                <cache_lifetime>7200</cache_lifetime>
             </used_products>
             <configurable_attributes>
                 <cache_key>configurable_attributes</cache_key>
                 <cache_tag>cached_configurable_attributes</cache_tag>
-                <cache_lifetime>7200</cache_lifetime>
             </configurable_attributes>
         </company_performance>
     </default>
