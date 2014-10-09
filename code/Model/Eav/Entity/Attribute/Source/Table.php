@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Company_Performance_Model_Eav_Entity_Attribute_Source_Table
  *
@@ -195,4 +194,39 @@ class Company_Performance_Model_Eav_Entity_Attribute_Source_Table extends Mage_E
         return $collection->toOptionArray();
     }
 
+    /**
+     * Get a text for option value
+     *
+     * @param string|integer $value
+     *
+     * @return string
+     */
+    public function getNeededOptionText($value) {
+        $isMultiple = false;
+        if (strpos($value, ',')) {
+            $isMultiple = true;
+            $value = explode(',', $value);
+        }
+
+        $options = $this->getNeededOptions($value);
+
+        if ($isMultiple) {
+            $values = array();
+            foreach ($options as $item) {
+                if (in_array($item['value'], $value)) {
+                    $values[] = $item['label'];
+                }
+            }
+
+            return $values;
+        }
+
+        foreach ($options as $item) {
+            if ($item['value'] == $value) {
+                return $item['label'];
+            }
+        }
+
+        return false;
+    }
 }
