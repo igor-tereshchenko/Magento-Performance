@@ -1,10 +1,9 @@
 <?php
-
 /**
  * @category Compamy
  * @package Compamy_Performance
  */
-class Company_CatalogRule_Model_Observer extends Mage_CatalogRule_Model_Observer
+class Company_Performance_Model_CatalogRule_Observer extends Mage_CatalogRule_Model_Observer
 {
     /**
      * @var array

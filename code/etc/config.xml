@@ -30,7 +30,7 @@
             </eav>
             <catalogrule>
                 <rewrite>
-                    <observer>Company_CatalogRule_Model_Observer</observer>
+                    <observer>Company_Performance_Model_CatalogRule_Observer</observer>
                 </rewrite>
             </catalogrule>
         </models>
