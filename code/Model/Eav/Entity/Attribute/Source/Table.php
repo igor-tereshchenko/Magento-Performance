@@ -177,4 +177,22 @@ class Company_Performance_Model_Eav_Entity_Attribute_Source_Table extends Mage_E
 
         return false;
     }
+
+    /**
+     * @param $ids
+     *
+     * @return mixed
+     */
+    public function getNeededOptions($ids) {
+        $storeId = $this->getAttribute()->getStoreId();
+        $collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
+                          ->setPositionOrder('asc')
+                          ->setAttributeFilter($this->getAttribute()->getId())
+                          ->addFieldToFilter('main_table.option_id', array('in' => $ids))
+                          ->setStoreFilter($this->getAttribute()->getStoreId())
+                          ->load();
+
+        return $collection->toOptionArray();
+    }
+
 }
