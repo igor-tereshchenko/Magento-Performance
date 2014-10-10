@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class Company_Performance_Model_Catalog_Product_Type_Configurable
  *
@@ -16,7 +15,7 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
     /**
      * Initialize caches
      */
-    public function init() {
+    public static function init() {
         if (empty(self::$_cacheArray)) {
             self::$_cacheArray = [
                 'USED_PRODUCTS_CACHE_KEY'      => Mage::getStoreConfig('company_performance/used_products/cache_key'),
@@ -30,7 +29,7 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
     }
 
     public function __construct() {
-        $this->init();
+        self::init();
     }
 
     /**
@@ -58,12 +57,10 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
                     if ($value->getSourceModel()) {
                         if (!Mage::app()->getStore()->isAdmin()) {
                             $value = $value->getSource()->getNeededOptionText($attributeValue);
-                        }
-                        else {
+                        } else {
                             $value = $value->getSource()->getOptionText($attributeValue);
                         }
-                    }
-                    else {
+                    } else {
                         $value = '';
                     }
 
@@ -100,8 +97,7 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
                 if ($collection->getFirstItem()->getId()) {
                     $salable = true;
                 }
-            }
-            else {
+            } else {
                 foreach ($this->getUsedProducts(null, $product) as $child) {
                     if ($child->isSalable()) {
                         $salable = true;
@@ -124,6 +120,7 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
      */
     public function getUsedProducts($requiredAttributeIds = null, $product = null) {
         Varien_Profiler::start('CONFIGURABLE:' . __METHOD__);
+
         if (!$this->getProduct($product)->hasData($this->_usedProducts)) {
             if (is_null($requiredAttributeIds)
                 and is_null($this->getProduct($product)->getData($this->_configurableAttributes))
@@ -168,7 +165,7 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
                 try {
                     if (!Mage::app()->getStore()->isAdmin() && $product) {
                         Mage::app()->saveCache(
-                            serialize($usedProducts),
+                            urlencode(serialize($usedProducts)),
                             $cacheId,
                             array((string) self::$_cacheArray['USED_PRODUCTS_CACHE_TAG']),
                             (string) self::$_cacheArray['USED_PRODUCTS_CACHE_LIFETIME']
@@ -179,72 +176,15 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
                     Mage::log('error while saving used products to cache: ' . $e->getMessage());
                 }
 
-            }
-            else {
-                $usedProducts = unserialize($usedProducts);
+            } else {
+                $usedProducts = unserialize(urldecode($usedProducts));
             }
 
             $this->getProduct($product)->setData($this->_usedProducts, $usedProducts);
         }
+
         Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
 
         return $this->getProduct($product)->getData($this->_usedProducts);
-    }
-
-    /**
-     * Retrieve configurable attributes data
-     *
-     * @param  Mage_Catalog_Model_Product $product
-     *
-     * @return array
-     */
-    public function getConfigurableAttributes($product = null) {
-        Varien_Profiler::start('CONFIGURABLE:' . __METHOD__);
-
-        if (!$this->getProduct($product)->hasData($this->_configurableAttributes)) {
-            $configurableAttributes = array();
-            if (!Mage::app()->getStore()->isAdmin() && $product) {
-                $locale = Mage::app()->getLocale();
-                $cacheKeyData = array(
-                    self::$_cacheArray['CONF_ATTR_CACHE_KEY'],
-                    $locale->getLocaleCode(),
-                    $product->getId()
-                );
-                $cacheId = implode('_', $cacheKeyData);
-                $configurableAttributes = Mage::app()->loadCache($cacheId);
-            }
-
-            if (empty($configurableAttributes)) {
-                $collection = $this->getConfigurableAttributeCollection($product)
-                                   ->orderByPosition()
-                                   ->load();
-
-                foreach ($collection as $item) {
-                    $configurableAttributes[] = $item;
-                }
-
-                try {
-                    if (!Mage::app()->getStore()->isAdmin() && $product) {
-                        Mage::app()->saveCache(
-                            serialize($configurableAttributes),
-                            $cacheId,
-                            array(self::$_cacheArray['CONF_ATTR_CACHE_TAG']),
-                            self::$_cacheArray['CONF_ATTR_CACHE_LIFETIME']
-                        );
-                    }
-                }
-                catch (Exception $e) {
-                    Mage::log('error while saving to the cache: ' . $e->getMessage());
-                }
-            }
-            else {
-                $configurableAttributes = unserialize($configurableAttributes);
-            }
-            $this->getProduct($product)->setData($this->_configurableAttributes, $configurableAttributes);
-        }
-
-        Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
-
-        return $this->getProduct($product)->getData($this->_configurableAttributes);
     }
 }

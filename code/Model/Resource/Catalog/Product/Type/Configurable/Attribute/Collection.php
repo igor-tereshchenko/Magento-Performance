@@ -23,8 +23,7 @@ class Company_Performance_Model_Resource_Catalog_Product_Type_Configurable_Attri
 
             if ($this->getHelper()->isPriceGlobal()) {
                 $websiteId = 0;
-            }
-            else {
+            } else {
                 $websiteId = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
                 $pricing[$websiteId] = array();
             }
@@ -35,8 +34,7 @@ class Company_Performance_Model_Resource_Catalog_Product_Type_Configurable_Attri
 
             if ($websiteId > 0) {
                 $select->where('price.website_id IN(?)', array(0, $websiteId));
-            }
-            else {
+            } else {
                 $select->where('price.website_id = ?', 0);
             }
 
@@ -50,8 +48,7 @@ class Company_Performance_Model_Resource_Catalog_Product_Type_Configurable_Attri
 
             if (!Mage::app()->getStore()->isAdmin() && isset(self::$_prices[$this->getProduct()->getId()])) {
                 $values = self::$_prices[$this->getProduct()->getId()];
-            }
-            else {
+            } else {
                 $_prods = $this->getProduct()->getTypeInstance(true)->getUsedProducts(null, $this->getProduct());
                 foreach ($this->_items as $item) {
                     $productAttribute = $item->getProductAttribute();
