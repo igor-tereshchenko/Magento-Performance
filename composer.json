@@ -1,0 +1,14 @@
+{
+    "name": "igor-tereshchenko/magento-performance",
+    "license": "The MIT License (MIT)",
+    "type": "magento-module",
+    "description": "Magento Performance",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "authors":[
+        {
+            "name":"Igor Tereshchenko"
+        }
+    ]
+}

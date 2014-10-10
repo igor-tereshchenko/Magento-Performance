@@ -33,48 +33,6 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
     }
 
     /**
-     * Retrieve Selected Attributes info
-     *
-     * @param Mage_Catalog_Model_Product $product
-     *
-     * @return array
-     */
-    public function getSelectedAttributesInfo($product = null) {
-        Varien_Profiler::start('CONFIGURABLE:' . __METHOD__);
-
-        $attributes = array();
-        if ($attributesOption = $this->getProduct($product)->getCustomOption('attributes')) {
-            $data = unserialize($attributesOption->getValue());
-            $this->getUsedProductAttributeIds($product);
-
-            $usedAttributes = $this->getProduct($product)->getData($this->_usedAttributes);
-
-            foreach ($data as $attributeId => $attributeValue) {
-                if (isset($usedAttributes[$attributeId])) {
-                    $attribute = $usedAttributes[$attributeId];
-                    $label = $attribute->getLabel();
-                    $value = $attribute->getProductAttribute();
-                    if ($value->getSourceModel()) {
-                        if (!Mage::app()->getStore()->isAdmin()) {
-                            $value = $value->getSource()->getNeededOptionText($attributeValue);
-                        } else {
-                            $value = $value->getSource()->getOptionText($attributeValue);
-                        }
-                    } else {
-                        $value = '';
-                    }
-
-                    $attributes[] = array('label' => $label, 'value' => $value);
-                }
-            }
-        }
-
-        Varien_Profiler::stop('CONFIGURABLE:' . __METHOD__);
-
-        return $attributes;
-    }
-
-    /**
      * Check is product available for sale
      *
      * @param Mage_Catalog_Model_Product $product
@@ -94,7 +52,7 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
                 $collection = $this->getUsedProductCollection($product)
                                    ->addAttributeToFilter('status', Mage_Catalog_Model_Product_Status::STATUS_ENABLED)
                                    ->setPageSize(1);
-                if ($collection->getFirstItem()->getId()) {
+                if ($collection->getSize()) {
                     $salable = true;
                 }
             } else {

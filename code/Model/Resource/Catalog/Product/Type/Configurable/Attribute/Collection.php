@@ -59,7 +59,7 @@ class Company_Performance_Model_Resource_Catalog_Product_Type_Configurable_Attri
                     foreach ($_prods as $associatedProduct) {
                         $_options[] = $associatedProduct->getData($productAttribute->getAttributeCode());
                     }
-                    $options = $productAttribute->getSource()->getNeededOptions($_options);
+                    $options = $productAttribute->getFrontend()->getSelectOptions();
                     foreach ($options as $option) {
                         foreach ($_prods as $associatedProduct) {
                             if (!empty($option['value'])
