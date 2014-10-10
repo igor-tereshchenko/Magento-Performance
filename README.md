@@ -17,4 +17,6 @@ Model/Eav/Entity/Attribute/Source/Table.php:
   
 Model/Resource/Catalog/Product/Type/Configurable/Attribute/Collection.php:
     - _loadPrices(): return prices from the static variable instead of running _loadPrices() in the loop.
-      
+    
+Model/CatalogRule/Observer.php:
+    - beforeCollectTotals(): pushing results per quote object into the local cache.

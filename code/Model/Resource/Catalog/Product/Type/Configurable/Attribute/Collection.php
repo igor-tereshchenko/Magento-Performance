@@ -24,7 +24,7 @@ class Company_Performance_Model_Resource_Catalog_Product_Type_Configurable_Attri
             if ($this->getHelper()->isPriceGlobal()) {
                 $websiteId = 0;
             } else {
-                $websiteId = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
+                $websiteId           = (int) Mage::app()->getStore($this->getStoreId())->getWebsiteId();
                 $pricing[$websiteId] = array();
             }
 
@@ -91,9 +91,9 @@ class Company_Performance_Model_Resource_Catalog_Product_Type_Configurable_Attri
                 // Addding pricing to options
                 $valueKey = $pricing['product_super_attribute_id'] . ':' . $pricing['value_index'];
                 if (isset($values[$valueKey])) {
-                    $values[$valueKey]['pricing_value'] = $pricing['pricing_value'];
-                    $values[$valueKey]['is_percent'] = $pricing['is_percent'];
-                    $values[$valueKey]['value_id'] = $pricing['value_id'];
+                    $values[$valueKey]['pricing_value']     = $pricing['pricing_value'];
+                    $values[$valueKey]['is_percent']        = $pricing['is_percent'];
+                    $values[$valueKey]['value_id']          = $pricing['value_id'];
                     $values[$valueKey]['use_default_value'] = true;
                 }
             }
@@ -102,9 +102,9 @@ class Company_Performance_Model_Resource_Catalog_Product_Type_Configurable_Attri
                 foreach ($pricings[$websiteId] as $pricing) {
                     $valueKey = $pricing['product_super_attribute_id'] . ':' . $pricing['value_index'];
                     if (isset($values[$valueKey])) {
-                        $values[$valueKey]['pricing_value'] = $pricing['pricing_value'];
-                        $values[$valueKey]['is_percent'] = $pricing['is_percent'];
-                        $values[$valueKey]['value_id'] = $pricing['value_id'];
+                        $values[$valueKey]['pricing_value']     = $pricing['pricing_value'];
+                        $values[$valueKey]['is_percent']        = $pricing['is_percent'];
+                        $values[$valueKey]['value_id']          = $pricing['value_id'];
                         $values[$valueKey]['use_default_value'] = false;
                     }
                 }

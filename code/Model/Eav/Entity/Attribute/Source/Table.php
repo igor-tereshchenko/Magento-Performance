@@ -60,9 +60,9 @@ class Company_Performance_Model_Eav_Entity_Attribute_Source_Table extends Mage_E
         }
 
         self::$_preloadedOptionsStores[$storeId] = true;
-        $collection = Mage::getResourceModel('eav/entity_attribute_option_collection')
-                          ->setPositionOrder('asc')
-                          ->setStoreFilter($storeId);
+        $collection                              = Mage::getResourceModel('eav/entity_attribute_option_collection')
+                                                       ->setPositionOrder('asc')
+                                                       ->setStoreFilter($storeId);
 
         // This one allows to limit selection of options, based on frontend criteria.
         // E.g. if not all the attribute options are needed for the current page
@@ -74,12 +74,12 @@ class Company_Performance_Model_Eav_Entity_Attribute_Source_Table extends Mage_E
         $options = $collection->getData();
 
         foreach ($options as $option) {
-            $optionKey = self::_getCombinedKey($storeId, $option['option_id'], 'store');
-            $storeKey = self::_getCombinedKey($storeId, $option['attribute_id'], 'store');
+            $optionKey  = self::_getCombinedKey($storeId, $option['option_id'], 'store');
+            $storeKey   = self::_getCombinedKey($storeId, $option['attribute_id'], 'store');
             $defaultKey = self::_getCombinedKey($storeId, $option['attribute_id'], 'default');
 
             self::$_preloadedOptionHash[$optionKey] = $option['value'];
-            self::$_preloadedOptions[$storeKey][] = array(
+            self::$_preloadedOptions[$storeKey][]   = array(
                 'value' => $option['option_id'],
                 'label' => $option['value']
             );
@@ -108,7 +108,7 @@ class Company_Performance_Model_Eav_Entity_Attribute_Source_Table extends Mage_E
             $this->_optionsDefault = array();
         }
         if (!isset($this->_options[$storeId])) {
-            $this->_options[$storeId] = self::_getPreloadedOptions(
+            $this->_options[$storeId]        = self::_getPreloadedOptions(
                 $storeId,
                 $this->getAttribute()->getId(),
                 'store'
@@ -153,7 +153,7 @@ class Company_Performance_Model_Eav_Entity_Attribute_Source_Table extends Mage_E
         $isMultiple = false;
         if (strpos($value, ',')) {
             $isMultiple = true;
-            $value = explode(',', $value);
+            $value      = explode(',', $value);
         }
 
         if ($isMultiple) {

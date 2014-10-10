@@ -93,13 +93,13 @@ class Company_Performance_Model_Catalog_Product_Type_Configurable extends Mage_C
 
             $usedProducts = array();
             if (!Mage::app()->getStore()->isAdmin() && $product) {
-                $locale = Mage::app()->getLocale();
+                $locale       = Mage::app()->getLocale();
                 $cacheKeyData = array(
                     self::$_cacheArray['USED_PRODUCTS_CACHE_KEY'],
                     $locale->getLocaleCode(),
                     $product->getId()
                 );
-                $cacheId = implode('_', $cacheKeyData);
+                $cacheId      = implode('_', $cacheKeyData);
                 $usedProducts = Mage::app()->loadCache($cacheId);
             }
 
